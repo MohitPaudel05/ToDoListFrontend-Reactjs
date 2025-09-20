@@ -1,27 +1,38 @@
 import React, { useEffect, useState } from "react";
-import { DeleteTodo, UpdateTodo } from "../services/api";
+import { GetTodos,DeleteTodo, UpdateTodo } from "../services/api";
 
-const TodoItem = ({ todo }) => {
+const TodoItem = ({ todo, onUpdate, onDelete }) => {
   const [editId, setEditId] = useState(null);
   const [editTitle, setEditTitle] = useState(todo.title);
   const [editDescription, setEditDescription] = useState(todo.description);
+  
 
   const handleSave = async () => {
-    await UpdateTodo(todo.id, {
-      title: editTitle,
-      description: editDescription,
-    });
+    if (!editTitle.trim()) return alert("Title required!");
+    try {
+      await UpdateTodo(todo.id, {
+        title: editTitle,
+        description: editDescription,
+      });
+    } catch (error) {
+      console.error("Error updating todo:", error);
+    }
     setEditId(null);
+    if (onUpdate) onUpdate(todo.id);// Call onUpdate to refresh the list
     alert("Task updated successfully");
-
-    window.location.reload(); // Reload the page to fetch and display the updated list
   };
 
   // Handle delete with confirmation
-  const handleDelete = async () => {
+  const handleDelete = async (id) => {
     if (window.confirm("Delete task?")) {
-      await DeleteTodo(todo.id);
-      alert("Task deleted successfully");
+      try {
+        await DeleteTodo(todo.id);
+        alert("Task deleted successfully");
+        if (onDelete) onDelete(id);
+      } catch (error) {
+        console.error("Error deleting todo:", error);
+      }
+
     }
   };
 
@@ -71,7 +82,7 @@ const TodoItem = ({ todo }) => {
               Edit
             </button>
             <button
-              onClick={handleDelete}
+              onClick={handleDelete}  
               className="bg-red-500 text-white px-3 py-1 rounded"
             >
               Delete

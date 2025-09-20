@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { CreateTodo } from "../services/api";
 import Navbar from "./Navbar";
 
-const TodoForm = () => {
+const TodoForm = ({ onAdd }) => {
     //states variables  for title and description
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -12,12 +12,27 @@ const TodoForm = () => {
     e.preventDefault();
     // title.trim to remove whitespace and check if title is empty
     if (!title.trim()) return alert("Title required!");
-    await CreateTodo({ title, description, isCompleted: false });
+    const newTodo = { title, description, isCompleted: false };
+    try {
+        await CreateTodo(newTodo);
+        if (onAdd) onAdd(newTodo); // Call the onAdd function if provided
+
+        
+        
+        alert("Task added successfully");
+
+    } catch (error) {
+        console.error("Error creating todo:", error);
+    }
     setTitle("");
     setDescription("");
+    
+    
+  
+    
 
     // Reload the page to fetch and display the updated list
-    // window.location.reload();
+    
   };
 
   return (

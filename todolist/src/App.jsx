@@ -22,16 +22,16 @@ const Home = () => {
     <div className="max-w-2xl mx-auto p-6 bg-blue-100 min-h-screen">
       
       <div className="sticky top-0 mb-4">
-        
-       
-        <TodoForm onTodoCreated={fetchTodos} />
+
+
+        <TodoForm  onAdd={fetchTodos} />
       </div>
       <div>
         
         <ul className="space-y-2 mt-3">
           <h2 className="text-2xl font-bold mb-4 text-center text-blue-600">Task List</h2>
         {todos.map((todo) => (
-          <TodoItem key={todo.id} todo={todo} onUpdated={fetchTodos} />
+          <TodoItem key={todo.id} todo={todo}  onDelete={fetchTodos}  onUpdate={fetchTodos} />
      
         ))}
       </ul>

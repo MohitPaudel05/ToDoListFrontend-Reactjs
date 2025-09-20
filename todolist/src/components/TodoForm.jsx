@@ -15,7 +15,8 @@ const TodoForm = ({ onAdd }) => {
     const newTodo = { title, description, isCompleted: false };
     try {
         await CreateTodo(newTodo);
-        if (onAdd) onAdd(newTodo); // Call the onAdd function if provided
+        //refresh
+        if (onAdd) onAdd(newTodo); 
 
         
         
@@ -31,8 +32,7 @@ const TodoForm = ({ onAdd }) => {
   
     
 
-    // Reload the page to fetch and display the updated list
-    
+   
   };
 
   return (

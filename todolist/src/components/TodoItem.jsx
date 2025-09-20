@@ -37,16 +37,18 @@ const TodoItem = ({ todo, onUpdate, onDelete }) => {
   };
 
   return (
-    <li className="bg-white p-4 rounded-lg shadow">
+    <li className="bg-red-200 p-4 rounded-lg shadow-lg shadow-gray-500 mb-4">
       {/* Conditional rendering based on isEditing state */}
       {editId === todo.id ? (
         <>
           <input
+          placeholder="Title"
             value={editTitle}
             onChange={(e) => setEditTitle(e.target.value)}
             className="border p-2 rounded"
           />
           <input
+            placeholder="Description"
             value={editDescription}
             onChange={(e) => setEditDescription(e.target.value)}
             className="border p-2 rounded"

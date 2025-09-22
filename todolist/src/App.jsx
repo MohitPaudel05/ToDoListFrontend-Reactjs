@@ -1,47 +1,26 @@
+import React from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+import Home from "./Home";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
 
-import React, { useEffect, useState } from "react";
-import { GetTodos } from "./services/api";
-import Navbar from "./components/Navbar";
-import TodoForm from "./components/TodoForm";
-import TodoItem from "./components/TodoItem";
-import "./App.css";
-
-const Home = () => {
-  const [todos, setTodos] = useState([]);
-// Fetch todos from the API
-  const fetchTodos = async () => {
-    const data = await GetTodos();
-    setTodos(data);
-  };
-// Fetch todos on component mount
-  useEffect(() => {
-    fetchTodos();
-  }, []);
+const App = () => {
+  const token = localStorage.getItem("token");
 
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-blue-100 min-h-screen">
-      
-      <div className="sticky top-0 mb-4">
-
-
-        <TodoForm  onAdd={fetchTodos} />
-      </div>
-      <div>
-        
-        <ul className="space-y-2 mt-3">
-          <h2 className="text-2xl font-bold mb-4 text-center text-blue-600">Task List</h2>
-        {todos.map((todo) => (
-          <TodoItem key={todo.id} todo={todo}  onDelete={fetchTodos}  onUpdate={fetchTodos} />
      
-        ))}
-      </ul>
-      </div>
-      
-    </div>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
+    
   );
 };
 
-export default Home;
+export default App;
+
+
 
 
 

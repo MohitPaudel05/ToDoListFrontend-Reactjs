@@ -1,6 +1,8 @@
 import axios from "axios"
 
-const apiUrl= "https://localhost:7037";
+const apiUrl= "https://localhost:7038";
+
+const authUrl = "https://localhost:7037/api/UserAuth";
 //get
 export const GetTodos = async () => {
     try{
@@ -49,3 +51,23 @@ export const DeleteTodo = async (id)=>{
     }
 };
 
+//register 
+export const registeruser= async(userdata)=>{
+    const response = await axios.post (`${authUrl}/register `,userdata);
+    return response.data;
+};
+
+//login 
+ export const loginuser = async (credentials)=>{
+    const response = await axios.post(`${authUrl}/login`,{
+         Email: credentials.email,
+        Password: credentials.password
+    });
+    return response.data;
+};
+//logout 
+
+export const logoutuser = async () =>{
+    const response = await axios.post (`${authUrl}/logout`);
+    return response.data;
+};

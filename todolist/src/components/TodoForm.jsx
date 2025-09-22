@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { CreateTodo } from "../services/api";
-import Navbar from "./Navbar";
+
+import Title from "./Title";
 
 const TodoForm = ({ onAdd }) => {
     //states variables  for title and description
@@ -37,7 +38,7 @@ const TodoForm = ({ onAdd }) => {
 
   return (
     <form className="bg-white p-6 rounded-lg shadow-md flex flex-col gap-4" onSubmit={handleSubmit}>
-        <Navbar />
+        <Title />
       <input
         type="text"
         placeholder="Title"
@@ -52,7 +53,7 @@ const TodoForm = ({ onAdd }) => {
         onChange={(e) => setDescription(e.target.value)}
         className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
       />
-      <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+      <button className="bg-blue-500 text-white px-4 py-2 rounded cursor-pointer hover:bg-blue-600">
         Add Task
       </button>
     </form>
